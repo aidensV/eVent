@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\History;
 use App\Models\Lab;
 use App\Models\Module;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ModuleController extends Controller
@@ -25,6 +27,17 @@ class ModuleController extends Controller
         $module = Module::where('lab_id',$id)->get();
         
         return view('master.module.index',compact('module'));
+    }
+
+    public function detail($id)
+    {
+        $module = Module::with('lab')->find($id);
+        $history = History::where('modul_id',$id)->get();
+        if(!$module){
+            return back();
+        }
+        
+        return view('master.module.detail',compact('module','history'));
     }
 
     public function store(Request $request)
@@ -62,6 +75,29 @@ class ModuleController extends Controller
             return redirect()->route('master.module.show',$request->lab_id);
         } catch (\Throwable $th) {
             throw $th;
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $module = Module::find($id);
+            if(!$module){
+                return back()->with('success','Terjadi kesalahan ');
+            }
+            $img = Storage::exists('public/berkas/'.$module->path_image);
+            if($img){
+                Storage::delete('public/berkas/'.$module->path_image);
+            }
+            $doc  = Storage::exists('public/berkas/dokumen/'.$module->path_file);
+            if($doc){
+                Storage::delete('public/berkas/dokumen/'.$module->path_file);
+            }
+            
+            $module->delete();
+            return back()->with('success','Berhasil menghapus module '.$module->name);
+        } catch (\Throwable $th) {
+            return back()->with('error','Gagal menghapus module');
         }
     }
 

@@ -48,6 +48,7 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Name</th>
+                  <th scope="col">Prodi</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -56,8 +57,9 @@
                 <tr>
                   <th scope="row">{{$key+1}}</th>
                   <td><a href="{{route('master.module.show',$data->id)}}"> {{$data->name}}</a></td>
+                  <td>{{$data->prodi->name}}</td>
                   <td>
-                    <form action="{{route('master.users.delete',$data->id)}}" method="post">
+                    <form action="{{route('master.lab.delete',$data->id)}}" method="post">
                       @csrf
                       {{ method_field('DELETE') }}
                       <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>

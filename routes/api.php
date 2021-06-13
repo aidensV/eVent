@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LabController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\UsersController;
@@ -20,6 +21,7 @@ Route::post('login',[UsersController::class,'login']);
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('list-lab',[LabController::class,'listLab']);
     Route::get('list-module',[ModuleController::class,'listModule']);
+    Route::post('store-history',[HistoryController::class,'store']);
 });
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

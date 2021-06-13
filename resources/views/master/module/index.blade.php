@@ -57,11 +57,15 @@
                   <th scope="row">{{$key+1}}</th>
                   <td><a href="{{route('master.lab.show',$data->id)}}"> {{$data->name}}</a></td>
                   <td>
-                    <form action="{{route('master.users.delete',$data->id)}}" method="post">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                    
+                    <form action="{{route('master.module.delete',$data->id)}}" method="post">
                       @csrf
                       {{ method_field('DELETE') }}
                       <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
                     </form>
+                    <a href="{{route('master.module.detail',$data->id)}}" class="btn btn-sm btn-info"><i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
 
                   </td>
                 </tr>

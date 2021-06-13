@@ -26,4 +26,18 @@ class ProdiController extends Controller
             return back()->with('error','Gagal menambahkan prodi '.$request->name);
         }
     }
+
+    public function delete($id)
+    {
+        try {
+            $prodi = Prodi::find($id);
+            if(!$prodi){
+                return back()->with('error','Terjadi kesalahan');
+            }
+            $prodi->delete();
+            return back()->with('success','Berhasil menghapus prodi '.$prodi->name);
+        } catch (\Throwable $th) {
+            return back()->with('error','Gagal menghapus prodi '.$th->getMessage());
+        }
+    }
 }
