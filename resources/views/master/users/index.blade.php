@@ -51,7 +51,7 @@
                   <th scope="row">{{$key+1}}</th>
                   <td>{{$data->name}}</td>
                   <td>{{$data->phone}}</td>
-                  <td>{{$data->prodi}}</td>
+                  <td>{{$data->prodis->name}}</td>
                   <td>{{$data->type}}</td>
                   <td>
                     <form action="{{route('master.users.delete',$data->id)}}" method="post">
