@@ -14,7 +14,10 @@ class AlterChangeNameUserTable extends Migration
     public function up()
     {
         Schema::rename('prodi', 'prodis');
-        Schema::table('user', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['prodi']);
+        });
+        Schema::table('users', function (Blueprint $table) {
             $table->foreign('prodi')->references('id')->on('prodis');
          });
     }
@@ -30,5 +33,6 @@ class AlterChangeNameUserTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign(['prodi']);
         });
+        Schema::rename('prodis', 'prodi');
     }
 }
