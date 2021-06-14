@@ -90,8 +90,8 @@ class UsersController extends Controller
             );
 
 
-            if($credentials->fails()){
-                return back()->with('fail',$credentials->errors()->first());
+            if ($credentials->fails()) {
+                return back()->with('fail', $credentials->errors()->first());
             }
             $user = user::where('username', $request->username)->first();
             if (!$user) {
@@ -104,11 +104,11 @@ class UsersController extends Controller
                 $request->session()->regenerate();
 
                 return redirect()->intended('dashboard');
-            }else{
+            } else {
                 return back()->with('fail', 'Password salah');
             }
         } catch (\Throwable $th) {
-            return back()->with('error', 'Mohon maaf terjadi kesalahan'.$th->getMessage());
+            return back()->with('error', 'Mohon maaf terjadi kesalahan' . $th->getMessage());
         }
     }
     // Api 

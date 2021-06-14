@@ -15,7 +15,9 @@ class Menu
 {
     public static function menus()
     {
-        return  Prodi::with('labs')->get();
+        return  Prodi::with(['labs' => function($q){
+            
+        }])->get();
         
 
     }
