@@ -31,7 +31,7 @@
             <div class="row">
             
               <h5 class="card-title col-md-10"><i class="fas fa-info-circle"></i> General</h5>
-              <a  href="{{route('master.lab')}}" class="btn btn-secondary col-md-2"><i class="fas fa-arrow-left"></i></a>
+              <a  href="{{route('master.lab.show.module',$module->lab)}}" class="btn btn-link col-md-2"><i class="fas fa-arrow-left"></i></a>
             </div>
           </div>
           <div class="card-body">

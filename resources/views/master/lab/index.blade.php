@@ -38,7 +38,7 @@
             </div>
             @endif
             <div class="row">
-              <h5 class="card-title col-md-10">Demo Home</h5>
+              <h5 class="card-title col-md-10">Data lab</h5>
               <button data-toggle="modal" data-target="#create" class="btn btn-success col-md-2">Tambah</button>
             </div>
           </div>

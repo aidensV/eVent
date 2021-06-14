@@ -38,7 +38,7 @@
             </div>
             @endif
             <div class="row">
-              <h5 class="card-title col-md-10">Demo Home</h5>
+              <h5 class="card-title col-md-10">Data Module</h5>
               <a href="{{route('master.module.create',request()->route('id'))}}" class="btn btn-success col-md-2">Tambah</a>
             </div>
           </div>
@@ -65,6 +65,7 @@
                       <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
                     </form>
                     <a href="{{route('master.module.detail',$data->id)}}" class="btn btn-sm btn-info"><i class="fas fa-arrow-circle-right"></i></a>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="showQr({{json_encode($data->path_qr)}})"><i class="fas fa-qrcode"></i></button>
                     </div>
 
                   </td>
@@ -96,25 +97,32 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Prodi</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Qr Code</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form method="POST" action="{{route('master.prodi.store')}}">
-          @csrf
-          <div class="form-group">
-            <label for="exampleInputEmail1">Nama Prodi</label>
-            <input type="text" class="form-control" name="name" required id="name" placeholder="Masukan nama">
-          </div>
+      <div class="modal-body align-self-center">
+          <img id="image-qr" src="" alt="">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a id="link-qr" href="" download="" class="btn btn-primary">Simpan</a>
       </div>
-      </form>
+      
     </div>
   </div>
 </div>
+
 @endsection
+
+@push('scripts')
+<script>
+  function showQr(params) {
+    var img_src = "{{asset('storage/berkas/qr-code/')}}"+'/'+params;
+    $('#image-qr').attr('src',img_src);
+    $("#link-qr").attr("href", img_src);
+    $('#create').modal('show');
+  }
+</script>
+@endpush

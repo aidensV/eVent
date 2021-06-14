@@ -29,7 +29,7 @@
         <div class="card">
           <div class="card-header">
             <div class="row">
-              <h5 class="card-title col-md-10">Demo Home</h5>
+              <h5 class="card-title col-md-10">Data Users</h5>
               <a href="{{route('master.users.add')}}" class="btn btn-success col-md-2">Tambah</a>
             </div>
           </div>

@@ -8,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Top Navigation</title>
+    <title>eVent</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -25,10 +25,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
-                <a href="../../index3.html" class="navbar-brand">
-                    <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-                        class="brand-image img-circle elevation-3" style="opacity: .8">
-                    <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <a href="{{url('/')}}" class="navbar-brand">
+                    <span class="brand-text font-weight-light">eVent</span>
                 </a>
 
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse"
@@ -77,7 +75,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <a class="dropdown-item dropdown-toggle">{{ $item->name }}</a>
                                             <ul class="dropdown-menu border-0 shadow">
                                                 @for ($i = 0; $i < count($item->labs); $i++)
-                                                    <li><a href="{{route('master.module.show',$item->labs[$i]->id)}}" class="dropdown-item">{{ $item->labs[$i]->name }}</a>
+                                                    <li><a href="{{route('master.lab.show.module',$item->labs[$i]->id)}}" class="dropdown-item">{{ $item->labs[$i]->name }}</a>
                                                     </li>
 
                                                 @endfor
@@ -164,6 +162,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         }, 3000);
 
     </script>
+
+@stack('scripts')
+
 </body>
 
 </html>

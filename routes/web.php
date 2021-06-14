@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +41,7 @@ Route::middleware(['auth:web'])->group(function(){
     Route::get('/dashboard', function () {
         return view('home');
     })->name('dashboard');
-
+   
     Route::prefix('master')->group(function(){
         Route::prefix('users')->group(function(){
             Route::get('/',[UsersController::class,'index'])->name('master.users');
@@ -58,6 +59,7 @@ Route::middleware(['auth:web'])->group(function(){
             Route::get('/',[LabController::class,'index'])->name('master.lab');
             Route::get('/{id}/show',[LabController::class,'show'])->name('master.lab.show');
             Route::post('/',[LabController::class,'store'])->name('master.lab.store');
+            Route::get('/{id}/module',[LabController::class,'showModule'])->name('master.lab.show.module');
             Route::delete('/{id}',[LabController::class,'delete'])->name('master.lab.delete');
         });
     

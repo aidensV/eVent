@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lab;
+use App\Models\Module;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,14 @@ class LabController extends Controller
         } catch (\Throwable $th) {
             return back()->with('error','Gagal menambahkan lab '.$request->name);
         }
+    }
+
+    public function showModule($id)
+    {
+        
+        $module = Module::where('lab_id',$id)->get();
+        
+        return view('master.module.index',compact('module'));
     }
 
     public function delete($id)
