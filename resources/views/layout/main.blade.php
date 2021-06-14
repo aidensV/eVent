@@ -108,6 +108,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </div>
                         </div>
                     </form>
+
+                    <li class="nav-item">
+                        <a href="{{route('auth.logout')}}" class="nav-link">Logout</a>
+                    </li>
                 </div>
 
             </div>
