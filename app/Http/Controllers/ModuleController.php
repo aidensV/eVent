@@ -73,7 +73,7 @@ class ModuleController extends Controller
             $module->lab_id = $request->lab_id;
             $module->save();
             
-            $qrName = substr($labName->name,0,2).'-'.$module->id;
+            $qrName = 'Event-'.substr($labName->name,0,2).'-'.$module->id;
             $image = QrCode::format('png')
                 ->size(200)->errorCorrection('H')
                 ->generate($qrName);
