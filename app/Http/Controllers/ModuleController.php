@@ -53,7 +53,7 @@ class ModuleController extends Controller
                 $filenameWithExt = $request->file('image_file')->getClientOriginalName();
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                 $extension = $request->file('image_file')->getClientOriginalExtension();
-                $filenameSimpan = $filename . '_' . time() . '.' . $extension;
+                $filenameSimpan =  time() . '.' . $extension;
                 $path = $request->file('image_file')->storeAs('public/berkas', $filenameSimpan);
                 $module->path_image = $filenameSimpan;
             } else {
@@ -63,7 +63,7 @@ class ModuleController extends Controller
                 $filenameWithExt = $request->file('doc_file')->getClientOriginalName();
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                 $extension = $request->file('doc_file')->getClientOriginalExtension();
-                $filenameSimpan = $filename . '_' . time() . '.' . $extension;
+                $filenameSimpan = time() . '.' . $extension;
                 $path = $request->file('doc_file')->storeAs('public/berkas/dokumen', $filenameSimpan);
                 $module->path_file = $filenameSimpan;
             } else {
