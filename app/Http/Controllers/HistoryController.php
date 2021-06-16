@@ -12,12 +12,13 @@ class HistoryController extends Controller
     {
         $data = [];
         if($request->user()->type === 'admin'){
-            $data = History::where('module_id',$request->module_id)->get();
-            dd($data);
+            $data = History::where('modul_id',$request->module_id)->get();
+            
         }
         return response()->json([
             'status' => 'success',
-            'data' => $data
+	'data' => $data
+            
         ]);
     }
 
