@@ -44,10 +44,11 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         try {
-            $uniq = Str::uuid();
+            
+            $labName = Lab::where('id',$request->lab_id)->first();
             $module = new Module;
             $module->name = $request->name;
-            $module->uniqid = $uniq;
+            $module->uniqid = '';
             if ($request->hasFile('image_file')) {
                 $filenameWithExt = $request->file('image_file')->getClientOriginalName();
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
@@ -70,15 +71,19 @@ class ModuleController extends Controller
             }
 
             $module->lab_id = $request->lab_id;
-
+            $module->save();
+            
+            $qrName = substr($labName->name,0,2).'-'.$module->id;
             $image = QrCode::format('png')
                 ->size(200)->errorCorrection('H')
-                ->generate($uniq);
+                ->generate($qrName);
                 $nameFile = time() . '.png';
             $output_file = 'public/berkas/qr-code/' . $nameFile;
             Storage::disk('local')->put($output_file, $image);
-            $module->path_qr = $nameFile;
-            $module->save();
+            $modulex = Module::find($module->id);
+            $modulex->path_qr = $nameFile;
+            $modulex->uniqid = $qrName;
+            $modulex->update();
             return redirect()->route('master.module.show', $request->lab_id);
         } catch (\Throwable $th) {
             throw $th;
@@ -122,5 +127,20 @@ class ModuleController extends Controller
                 'message' => 'Data tidak ditemukan'
             ]);
         }
+    }
+
+    public function getModuleById($id)
+    {
+        $module = Module::with('lab')->find($id);
+        if(!$module){
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'Data tidak ditemukan'
+            ]);    
+        }
+        return response()->json([
+            'status' => 'success',
+            'data' => $module
+        ]);
     }
 }

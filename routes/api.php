@@ -22,6 +22,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('list-lab',[LabController::class,'listLab']);
     Route::get('list-module',[ModuleController::class,'listModule']);
     Route::post('store-history',[HistoryController::class,'store']);
+    Route::get('get-module-by-id/{id}',[ModuleController::class,'getModuleById']);
+    Route::get('get-history-by-admin',[HistoryController::class,'getHistory']);
 });
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

@@ -8,10 +8,18 @@ use Illuminate\Http\Request;
 class HistoryController extends Controller
 {
 
-    public function index()
+    public function getHistory(Request $request)
     {
-        
+        $data = [];
+        if($request->user()->type === 'admin'){
+            $data = History::where('module_id',$request->modul_id)->get();
+        }
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ]);
     }
+
     public function store(Request $request)
     {
         try {
