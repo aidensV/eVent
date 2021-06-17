@@ -13,7 +13,7 @@ class HistoryController extends Controller
         $data = [];
         if($request->user()->type === 'admin'){
             $data = History::where('modul_id',$request->module_id)
-            ->with('user')
+            ->with('user.prodis')
             ->with('module')
             ->orderBy('date','DESC')
             // ->limit(10)
@@ -22,7 +22,7 @@ class HistoryController extends Controller
         }else{
             $data = History::where('modul_id',$request->module_id)
             ->with('user')
-            ->with('module')
+            ->with('module.prodis')
             ->orderBy('date','DESC')
             ->first();
         }
