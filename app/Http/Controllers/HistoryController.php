@@ -11,15 +11,21 @@ class HistoryController extends Controller
     public function getHistory(Request $request)
     {
         $data = [];
-        // if($request->user()->type === 'admin'){
+        if($request->user()->type === 'admin'){
             $data = History::where('modul_id',$request->module_id)
             ->with('user')
             ->with('module')
             ->orderBy('created_at','DESC')
             ->limit(10)
-            ->first();
+            ->get();
             
-        // }
+        }else{
+            $data = History::where('modul_id',$request->module_id)
+            ->with('user')
+            ->with('module')
+            ->orderBy('created_at','DESC')
+            ->first();
+        }
         return response()->json([
             'status' => 'success',
 	        'data' => $data
