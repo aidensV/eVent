@@ -17,7 +17,7 @@ class HistoryController extends Controller
             ->with('module')
             ->orderBy('created_at','DESC')
             ->limit(10)
-            ->get();
+            ->first();
             
         // }
         return response()->json([
