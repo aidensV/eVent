@@ -15,6 +15,7 @@ class HistoryController extends Controller
             $data = History::where('modul_id',$request->module_id)
             ->with('user')
             ->with('module')
+            ->orderBy('created_at','DESC')
             ->get();
             
         // }
