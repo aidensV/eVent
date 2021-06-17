@@ -15,15 +15,15 @@ class HistoryController extends Controller
             $data = History::where('modul_id',$request->module_id)
             ->with('user')
             ->with('module')
-            ->orderBy('created_at','DESC')
-            ->limit(10)
-            ->get();
+            ->orderBy('date','DESC')
+            // ->limit(10)
+            ->first();
             
         }else{
             $data = History::where('modul_id',$request->module_id)
             ->with('user')
             ->with('module')
-            ->orderBy('created_at','DESC')
+            ->orderBy('date','DESC')
             ->first();
         }
         return response()->json([
