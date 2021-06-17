@@ -11,13 +11,13 @@ class HistoryController extends Controller
     public function getHistory(Request $request)
     {
         $data = [];
-        if($request->user()->type === 'admin'){
+        // if($request->user()->type === 'admin'){
             $data = History::where('modul_id',$request->module_id)
             ->with('user')
             ->with('module')
             ->get();
             
-        }
+        // }
         return response()->json([
             'status' => 'success',
 	        'data' => $data
@@ -30,8 +30,8 @@ class HistoryController extends Controller
         try {
             $history = new History;
             $history->date = $request->date;
-            $history->desc_1 = $request->desc_1;
-            $history->desc_2 = $request->desc_2;
+            $history->corrective = $request->corrective;
+            $history->preventive = $request->preventive;
             $history->user_id = $request->user()->id;
             $history->modul_id = $request->modul_id;
             $history->save();
