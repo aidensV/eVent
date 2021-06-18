@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\History;
 use App\Models\Lab;
 use App\Models\Module;
+
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 class ModuleController extends Controller
 {
@@ -44,8 +47,8 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         try {
-            
-            $labName = Lab::where('id',$request->lab_id)->first();
+
+            $labName = Lab::where('id', $request->lab_id)->first();
             $module = new Module;
             $module->name = $request->name;
             $module->uniqid = '';
@@ -72,12 +75,12 @@ class ModuleController extends Controller
 
             $module->lab_id = $request->lab_id;
             $module->save();
-            
-            $qrName = 'Event-'.substr($labName->name,0,2).'-'.$module->id;
+
+            $qrName = 'Event-' . substr($labName->name, 0, 2) . '-' . $module->id;
             $image = QrCode::format('png')
                 ->size(200)->errorCorrection('H')
                 ->generate($qrName);
-                $nameFile = time() . '.png';
+            $nameFile = time() . '.png';
             $output_file = 'public/berkas/qr-code/' . $nameFile;
             Storage::disk('local')->put($output_file, $image);
             $modulex = Module::find($module->id);
@@ -129,27 +132,27 @@ class ModuleController extends Controller
         }
     }
 
-    public function getModuleById(Request $request,$id)
+    public function getModuleById(Request $request, $id)
     {
         $modul = Module::with('lab')
-        ->find($id);
+            ->find($id);
 
-        if(!$modul){
+        if (!$modul) {
             return response()->json([
                 'status' => 'fail',
                 'message' => 'Data tidak ditemukan'
             ]);
         }
-        if($modul->lab->prodi_id === $request->user()->prodi){
+        if ($modul->lab->prodi_id === $request->user()->prodi) {
             return response()->json([
                 'status' => 'fail',
                 'message' => 'Anda tidak memiliki akses'
-            ],500);
-            
+            ], 500);
         }
         return response()->json([
             'status' => 'success',
             'data' => $modul
         ]);
     }
+   
 }

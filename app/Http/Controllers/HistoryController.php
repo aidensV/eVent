@@ -6,6 +6,8 @@ use App\Models\History;
 use App\Models\Module;
 use Exception;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Carbon;
 
 class HistoryController extends Controller
 {
@@ -71,5 +73,28 @@ class HistoryController extends Controller
                 
             ]);
         }
+    }
+
+    public function reportHistory(Request $request)
+    {
+        $params = $request->range;
+        $dt = History::with('user.prodis')
+            ->with('module')
+            ->orderBy('date','DESC');
+            
+        if($params == '1'){
+            $dt = $dt->whereDate('date',Carbon::now()->format('Y-m-d'));
+        }else if($params == '7'){
+            $dt = $dt->whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+        }else if($params == '30'){
+            $dt =$dt->whereMonth('date',Carbon::now()->format('m'));
+            
+        }
+        $dt = $dt->get();
+    
+        $pdf = PDF::loadview('report',['reports'=>$dt,'title' => 'Laporan Peminjaman ']);
+    	return $pdf->download('laporan-pegawai-pdf');
+
+
     }
 }
