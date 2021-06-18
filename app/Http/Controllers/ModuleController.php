@@ -144,7 +144,7 @@ class ModuleController extends Controller
             return response()->json([
                 'status' => 'fail',
                 'message' => 'Anda tidak memiliki akses'
-            ],401);
+            ],500);
             
         }
         return response()->json([
