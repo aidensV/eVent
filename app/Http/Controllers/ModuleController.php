@@ -129,18 +129,27 @@ class ModuleController extends Controller
         }
     }
 
-    public function getModuleById($id)
+    public function getModuleById(Request $request,$id)
     {
-        $module = Module::with('lab')->find($id);
-        if(!$module){
+        $modul = Module::with('lab')
+        ->find($id);
+
+        if(!$modul){
             return response()->json([
                 'status' => 'fail',
                 'message' => 'Data tidak ditemukan'
-            ]);    
+            ]);
+        }
+        if($modul->lab->prodi_id === $request->user()->prodi){
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'Anda tidak memiliki akses'
+            ]);
+            
         }
         return response()->json([
             'status' => 'success',
-            'data' => $module
+            'data' => $modul
         ]);
     }
 }
