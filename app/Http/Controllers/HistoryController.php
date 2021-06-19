@@ -80,7 +80,8 @@ class HistoryController extends Controller
         $params = $request->range;
         $dt = History::with('user.prodis')
             ->with('module')
-            ->orderBy('date','DESC')->where('modul_id',$request->module_id);
+            ->where('modul_id',$request->module_id)
+            ->orderBy('date','DESC');
             
         if($params == '1'){
             $dt = $dt->whereDate('date',Carbon::now()->format('Y-m-d'));
@@ -91,7 +92,7 @@ class HistoryController extends Controller
             
         }
         $dt = $dt->get();
-        dd($dt);
+        dd($request->all());
         $pdf = PDF::loadview('report',['reports'=>$dt,'title' => 'Laporan Peminjaman ']);
     	return $pdf->download('laporan-peminjaman-pdf');
 
