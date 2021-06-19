@@ -67,7 +67,7 @@
                 <div class="col-sm-10">
                   @if($module->path_file)
                   
-                    <i class="fas fa-file-pdf" style="font-size: 64pt;color:red"></i>
+                    <i class="fas fa-file-pdf" style="font-size: 64pt;color:red"></i><br>
                     <a class="btn btn-primary" href="{{asset('storage/berkas/dokumen/'.$module->path_file)}}" target="_new">Read more</a>
                   
                   @else
