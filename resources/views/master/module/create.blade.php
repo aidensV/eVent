@@ -74,7 +74,7 @@
               </div>
            
               <div class="text-right">
-              <a href="{{route('master.module')}}" class="btn btn-sencondary">Kembali</a>
+              <a href="{{route('master.lab.show.module',$lab->id)}}" class="btn btn-sencondary">Kembali</a>
               &nbsp;
                 <button type="submit" class="btn btn-primary">Simpan</button>
               </div>
