@@ -67,12 +67,12 @@
                 <div class="col-sm-10">
                   @if($module->path_file)
                   <div class="embed-responsive embed-responsive-4by3">
-                    <iframe class="embed-responsive-item" src="{{asset('storage/berkas/dokumen/'.$module->path_file)}}"></iframe>
+                    <i class="fas fa-file-pdf" style="font-size: 64pt;color:red"></i>
+                    <a class="btn btn-primary" href="{{asset('storage/berkas/dokumen/'.$module->path_file)}}" target="_new">Read more</a>
                   </div>
                   @else
                   <i class="fas fa-file-pdf" style="font-size: 64pt;color:red"></i>
                   @endif
-                  <a class="btn btn-primary" href="{{asset('storage/berkas/dokumen/'.$module->path_file)}}" target="_new">Read more</a>
                 </div>
                 
               </div>
