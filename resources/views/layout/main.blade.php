@@ -39,7 +39,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Home</a>
+                            <a href="{{route('dashboard')}}" class="nav-link">Home</a>
                         </li>
                         
                       
