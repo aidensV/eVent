@@ -91,7 +91,7 @@ class HistoryController extends Controller
             
         }
         $dt = $dt->get();
-    
+        dd($dt);
         $pdf = PDF::loadview('report',['reports'=>$dt,'title' => 'Laporan Peminjaman ']);
     	return $pdf->download('laporan-peminjaman-pdf');
 
