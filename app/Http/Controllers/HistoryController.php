@@ -80,7 +80,7 @@ class HistoryController extends Controller
         $params = $request->range;
         $dt = History::with('user.prodis')
             ->with('module')
-            ->where('modul_id',$request->module_id)
+            ->where('modul_id',8)
             ->orderBy('date','DESC');
                 dd($dt->get());
         if($params == '1'){
