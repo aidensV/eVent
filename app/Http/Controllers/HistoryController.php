@@ -80,9 +80,9 @@ class HistoryController extends Controller
         $params = $request->range;
         $dt = History::with('user.prodis')
             ->with('module')
-            ->where('modul_id',8)
+            ->where('modul_id',$request->module_id)
             ->orderBy('date','DESC');
-                dd($dt->get());
+                
         if($params == '1'){
             $dt = $dt->whereDate('date',Carbon::now()->format('Y-m-d'));
         }else if($params == '7'){
