@@ -64,10 +64,11 @@ class LabController extends Controller
     {
         
         $lab = Lab::where('prodi_id',$request->user()->prodi)->get();
+        $prodi = Prodi::find($request->user()->prodi);
         if($lab){
             return response()->json([
                 'status' => 'success',
-                'data' => $lab
+                'data' => ['lab' => $lab, 'prodi' => $prodi],
             ],200);    
         }
         return response()->json([
