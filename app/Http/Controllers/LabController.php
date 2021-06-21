@@ -63,7 +63,7 @@ class LabController extends Controller
     public function listLab(Request $request)
     {
         
-        $lab = Lab::find($request->user()->prodi);
+        $lab = Lab::where('prodi_id',$request->user()->prodi)->get();
         if($lab){
             return response()->json([
                 'status' => 'success',
