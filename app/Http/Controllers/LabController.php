@@ -63,8 +63,9 @@ class LabController extends Controller
     public function listLab(Request $request)
     {
         
-        $lab = Lab::where('prodi_id',$request->user()->prodi)->get();
-        $prodi = Prodi::find($request->user()->prodi);
+        $prodiID = $request->prodi_id ?? $request->user()->prodi;
+        $lab = Lab::where('prodi_id',$prodiID)->get();
+        $prodi = Prodi::find($prodiID);
         if($lab){
             return response()->json([
                 'status' => 'success',
@@ -76,4 +77,5 @@ class LabController extends Controller
             'message' => 'Data tidak ditemukan'
         ],400);
     }
+    
 }

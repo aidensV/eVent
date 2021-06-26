@@ -3,6 +3,7 @@
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LabController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('store-history',[HistoryController::class,'store']);
     Route::get('get-module-by-id/{id}',[ModuleController::class,'getModuleById']);
     Route::get('get-history-by-admin',[HistoryController::class,'getHistory']);
+    Route::get('list-prodi-admin',[ProdiController::class,'listProdi']);
     
 });
 Route::get('report-history',[HistoryController::class,'reportHistory']);
