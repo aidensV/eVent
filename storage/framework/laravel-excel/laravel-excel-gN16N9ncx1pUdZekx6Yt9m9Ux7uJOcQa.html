@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>{{$title}}</title>
+	<title>Laporan Peminjaman </title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -11,7 +11,7 @@
 		}
 	</style>
 	<center>
-		<h5>{{$title}}</h4>
+		<h5>Laporan Peminjaman </h4>
 		
 	</center>
  
@@ -29,18 +29,7 @@
 		</thead>
 		<tbody>
 			
-			@foreach($reports as $key => $report)
-			<tr>
-				<td>{{ $key+1 }}</td>
-				<td>{{\Carbon\Carbon::parse($report->date)->format('d/m/Y')}}</td>
-				<td>{{$report->user->name}}</td>
-				<td>{{$report->user->prodis->name}}</td>
-				<td>{{$report->corrective}}</td>
-				<td>{{$report->preventive}}</td>
-			
-			</tr>
-			@endforeach
-		</tbody>
+					</tbody>
 	</table>
  
 </body>

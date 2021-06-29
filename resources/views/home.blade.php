@@ -10,7 +10,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <!-- <li class="breadcrumb-item"><a href="#"></a></li>
-                      <li class="breadcrumb-item active"></li> -->
+                              <li class="breadcrumb-item active"></li> -->
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -115,13 +115,26 @@
             <h5 class="mb-2">Riwayat Peminjaman</h5>
             <div class="card">
                 <div class="card-header">
-                     <form method="POST" action="{{route('report.history')}}">
-                            @csrf
-                    <div class="d-flex flex-row-reverse">
-                       
+                    <form method="POST" action="{{ route('report.history') }}">
+                        @csrf
+                        <input type="hidden" name="type" id="export_type" value="excel">
+                        <div class="d-flex flex-row-reverse">
+
                             <div class="p-2">
-                                <button type="submit" class="btn btn-primary"> <i class="fas fa-download"></i></button>
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-danger" id="btn_export">Pdf</button>
+                                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Pilih Format</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="javascript:void(0)" onclick="changeButton('P')">Pdf</a>
+                                        <a class="dropdown-item" href="javascript:void(0)" onclick="changeButton('E')">Excel</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item"></a>
+                                    </div>
                                 </div>
+                            </div>
                             <div class="p-2">
                                 <select class="form-control" name="range">
                                     <option value="1" selected>1 Hari</option>
@@ -129,9 +142,9 @@
                                     <option value="30">30 Hari</option>
                                 </select>
                             </div>
-                            
+
                         </div>
-                        </form>
+                    </form>
                 </div>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover">
@@ -214,3 +227,23 @@
         </div><!-- /.container-fluid -->
     </div>
 @endsection
+@push('scripts')
+    <script>
+        function changeButton(params) {
+            if (params == 'P') {
+                document.getElementById("btn_export").classList.add('btn-danger');
+                document.getElementById("btn_export").classList.remove('btn-info');
+                document.getElementById('btn_export').innerHTML = "Pdf";
+                document.getElementById("export_type").value = "pdf";
+            } else {
+                document.getElementById("btn_export").classList.add('btn-info');
+                document.getElementById("btn_export").classList.remove('btn-danger');
+                document.getElementById('btn_export').innerHTML = "Excel";
+                document.getElementById("export_type").value = "excel";
+
+            }
+
+        }
+
+    </script>
+@endpush

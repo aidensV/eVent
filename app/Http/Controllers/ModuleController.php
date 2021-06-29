@@ -40,7 +40,7 @@ class ModuleController extends Controller
         if (!$module) {
             return back();
         }
-        
+
         return view('master.module.detail', compact('module', 'history'));
     }
 
@@ -63,7 +63,7 @@ class ModuleController extends Controller
                 $module->path_image = '';
             }
             if ($request->hasFile('doc_file')) {
-                
+
                 $filenameWithExt = $request->file('doc_file')->getClientOriginalName();
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                 $extension = $request->file('doc_file')->getClientOriginalExtension();
@@ -144,16 +144,17 @@ class ModuleController extends Controller
                 'message' => 'Data tidak ditemukan'
             ]);
         }
-        if ($modul->lab->prodi_id === $request->user()->prodi) {
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'Anda tidak memiliki akses'
-            ], 500);
+        if ($request->user()->type !== 'admin') {
+            if ($modul->lab->prodi_id === $request->user()->prodi) {
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => 'Anda tidak memiliki akses'
+                ], 500);
+            }
         }
         return response()->json([
             'status' => 'success',
             'data' => $modul
         ]);
     }
-   
 }
