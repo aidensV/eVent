@@ -112,7 +112,7 @@
                 </div>
                 <!-- /.col -->
             </div>
-            <h5 class="mb-2">Riwayat Peminjaman</h5>
+            <h5 class="mb-2">Riwayat Peminjaman Bulan {{Carbon\Carbon::now()->format('M')}}</h5>
             <div class="card">
                 <div class="card-header">
                     <form method="POST" action="{{ route('report.history') }}">
