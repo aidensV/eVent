@@ -93,7 +93,7 @@ class UsersController extends Controller
             if ($credentials->fails()) {
                 return back()->with('fail', $credentials->errors()->first());
             }
-            $user = user::where('username', $request->username)->first();
+            $user = user::where('username', $request->username)->where('type','admin')->first();
             if (!$user) {
                 return back()->with('fail', 'Pengguna tidak ditemukan');
             }
