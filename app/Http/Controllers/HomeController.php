@@ -7,6 +7,7 @@ use App\Models\Lab;
 use App\Models\Module;
 use App\Models\Prodi;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -17,7 +18,7 @@ class HomeController extends Controller
         $users = User::count() ;
         $labs = Lab::count();
         $prodis = Prodi::count();
-        $reports = History::with('user.prodis')
+        $reports = History::with('user.prodis')->whereMonth('date',Carbon::now()->format('m'))
         ->with('module')
         ->orderBy('date','DESC')->get();
         return view('home',compact('modules','users','labs','prodis','reports'));
