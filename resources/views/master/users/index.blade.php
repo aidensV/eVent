@@ -53,7 +53,14 @@
                   <td>{{$data->username}}</td>
                   <td>{{$data->name}}</td>
                   <td>{{$data->phone}}</td>
-                  <td>{{$data->prodis->name}}</td>
+                  <td>
+                    @if($data->type == 'admin' )
+                    -
+                    @else
+                    {{$data->prodis->name}}
+                    @endif
+                    
+                  </td>
                   <td>{{$data->type}}</td>
                   <td>
                     <form action="{{route('master.users.delete',$data->id)}}" method="post">
