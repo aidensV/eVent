@@ -22,11 +22,13 @@ class HistoryController extends Controller
                 ->with('user.prodis')
                 ->with('module')
                 ->orderBy('date', 'DESC')
+                ->whereMonth('date',Carbon::now()->format('m'))
                 // ->limit(10)
                 ->first();
         } else {
             $data = History::where('modul_id', $request->module_id)
                 ->with('user')
+                ->whereMonth('date',Carbon::now()->format('m'))
                 ->with('module.prodis')
                 ->orderBy('date', 'DESC')
                 ->first();
