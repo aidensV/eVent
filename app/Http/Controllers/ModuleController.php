@@ -144,14 +144,14 @@ class ModuleController extends Controller
                 'message' => 'Data tidak ditemukan'
             ]);
         }
-        if ($request->user()->type !== 'admin') {
-            if ($modul->lab->prodi_id === $request->user()->prodi) {
-                return response()->json([
-                    'status' => 'fail',
-                    'message' => 'Anda tidak memiliki akses'
-                ], 500);
-            }
-        }
+        // if ($request->user()->type !== 'admin') {
+        //     if ($modul->lab->prodi_id === $request->user()->prodi) {
+        //         return response()->json([
+        //             'status' => 'fail',
+        //             'message' => 'Anda tidak memiliki akses'
+        //         ], 500);
+        //     }
+        // }
         return response()->json([
             'status' => 'success',
             'data' => $modul
