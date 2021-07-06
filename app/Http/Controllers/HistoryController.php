@@ -22,12 +22,13 @@ class HistoryController extends Controller
                 ->with('user.prodis')
                 ->with('module')
                 ->orderBy('date', 'DESC')
+                ->with('prodi')
                 // ->limit(10)
                 ->first();
         } else {
             $data = History::where('modul_id', $request->module_id)
                 ->with('user')
-                
+                ->with('prodi')
                 ->with('module.prodis')
                 ->orderBy('date', 'DESC')
                 ->first();
@@ -48,9 +49,9 @@ class HistoryController extends Controller
             if (!$modul) {
                 throw new Exception("Terjadi kesalahan", 400);
             }
-            if ($modul->lab->prodi_id === $request->user()->prodi) {
-                throw new Exception("Anda tidak mempunyai akses", 400);
-            }
+            // if ($modul->lab->prodi_id === $request->user()->prodi) {
+            //     throw new Exception("Anda tidak mempunyai akses", 400);
+            // }
             if ($request->user()->type === 'admin') {
                 throw new Exception("Anda tidak mempunyai akses", 400);
             }
@@ -61,6 +62,7 @@ class HistoryController extends Controller
             $history->preventive = $request->preventive;
             $history->user_id = $request->user()->id;
             $history->modul_id = $request->modul_id;
+            $history->prodi_id = $request->prodi_id ?? 1;
             $history->save();
             return response()->json([
                 'status' => 'success',
