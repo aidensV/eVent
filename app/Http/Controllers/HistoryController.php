@@ -21,15 +21,15 @@ class HistoryController extends Controller
             $data = History::where('modul_id', $request->module_id)
                 ->with('user.prodis')
                 ->with('module')
-                ->orderBy('date', 'DESC')
                 ->with('prodi')
+                ->orderBy('date', 'DESC')
                 // ->limit(10)
                 ->first();
         } else {
             $data = History::where('modul_id', $request->module_id)
                 ->with('user')
                 ->with('prodi')
-                ->with('module.prodis')
+                ->with('module')
                 ->orderBy('date', 'DESC')
                 ->first();
         }
@@ -83,6 +83,7 @@ class HistoryController extends Controller
         $params = $request->range;
         $type = $request->type ?? 'pdf';
         $dt = History::with('user.prodis')
+            ->with('prodi')
             ->with('module');
         if ($request->module_id) {
             $dt = $dt->where('modul_id', $request->module_id);
