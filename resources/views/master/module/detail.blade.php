@@ -147,7 +147,7 @@
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->date)->format('d/m/Y') }}</td>
                                             <td>{{ $item->user->name }}</td>
-                                            <td>{{ $item->user->prodis->name }}</td>
+                                            <td>{{ $item->prodi->name }}</td>
                                             <td>{{ $item->corrective }}</td>
                                             <td>{{ $item->preventive }}</td>
 

@@ -36,7 +36,7 @@ class ModuleController extends Controller
     {
 
         $module = Module::with('lab')->find($id);
-        $history = History::where('modul_id', $id)->get();
+        $history = History::where('modul_id', $id)->with('prodi')->get();
         if (!$module) {
             return back();
         }
