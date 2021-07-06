@@ -18,7 +18,7 @@ class HomeController extends Controller
         $users = User::count() ;
         $labs = Lab::count();
         $prodis = Prodi::count();
-        $reports = History::with('user.prodis')->whereMonth('date',Carbon::now()->format('m'))
+        $reports = History::with('user.prodis')->with('prodi')->whereMonth('date',Carbon::now()->format('m'))
         ->with('module')
         ->orderBy('date','DESC')->get();
         return view('home',compact('modules','users','labs','prodis','reports'));
