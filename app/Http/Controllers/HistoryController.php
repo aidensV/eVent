@@ -63,6 +63,7 @@ class HistoryController extends Controller
             $history->user_id = $request->user()->id;
             $history->modul_id = $request->modul_id;
             $history->prodi_id = $request->prodi_id ;
+            $history->class_name = $request->class_name;
             $history->save();
             return response()->json([
                 'status' => 'success',
