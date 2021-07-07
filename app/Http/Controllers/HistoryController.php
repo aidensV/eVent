@@ -52,9 +52,9 @@ class HistoryController extends Controller
             // if ($modul->lab->prodi_id === $request->user()->prodi) {
             //     throw new Exception("Anda tidak mempunyai akses", 400);
             // }
-            if ($request->user()->type === 'admin') {
-                throw new Exception("Anda tidak mempunyai akses", 400);
-            }
+            // if ($request->user()->type === 'admin') {
+            //     throw new Exception("Anda tidak mempunyai akses", 400);
+            // }
 
             $history = new History;
             $history->date = $request->date;
