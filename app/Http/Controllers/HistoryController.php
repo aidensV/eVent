@@ -24,6 +24,7 @@ class HistoryController extends Controller
                 ->with('prodi')
                 ->orderBy('date', 'DESC')
                 // ->limit(10)
+                ->latest()
                 ->first();
         } else {
             $data = History::where('modul_id', $request->module_id)
@@ -31,6 +32,7 @@ class HistoryController extends Controller
                 ->with('prodi')
                 ->with('module')
                 ->orderBy('date', 'DESC')
+                ->latest()
                 ->first();
         }
         return response()->json([
