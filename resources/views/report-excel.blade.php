@@ -10,6 +10,7 @@
 				<th>Tanggal</th>
 				<th>Nama</th>
 				<th>Jurusan</th>
+				<th>Kelas</th>
 				<th>Corrective</th>
 				<th>Preventive</th>
 			</tr>
@@ -21,7 +22,8 @@
 				<td>{{ $key+1 }}</td>
 				<td>{{\Carbon\Carbon::parse($report->date)->format('d/m/Y')}}</td>
 				<td>{{$report->user->name}}</td>
-				<td>{{$report->prodi->name}}</td>
+				<td>{{$report->prodi->name ? $report->prodi->name : '-'}}</td>
+				<td>{{$report->class_name}}</td>
 				<td>{{$report->corrective}}</td>
 				<td>{{$report->preventive}}</td>
 			
