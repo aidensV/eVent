@@ -64,7 +64,7 @@ class HistoryController extends Controller
             $history->preventive = $request->preventive;
             $history->user_id = $request->user()->id;
             $history->modul_id = $request->modul_id;
-            $history->prodi_id = $request->prodi_id ;
+            $history->prodi_id = $request->prodi_id ?? $modul->lab->prodi_id;
             $history->class_name = $request->class_name;
             $history->save();
             return response()->json([
