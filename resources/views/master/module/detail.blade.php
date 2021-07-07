@@ -137,6 +137,7 @@
                                         <th>Tanggal</th>
                                         <th>Nama</th>
                                         <th>Jurusan</th>
+                                        <th>Kelas</th>
                                         <th>Corrective</th>
                                         <th>Preventive</th>
                                     </tr>
@@ -148,6 +149,8 @@
                                             <td>{{ \Carbon\Carbon::parse($item->date)->format('d/m/Y') }}</td>
                                             <td>{{ $item->user->name }}</td>
                                             <td>{{ $item->prodi->name }}</td>
+                                            <td>{{ $item->prodi ? $item->prodi->name : '-'}}</td>
+                                            <td>{{ $item->class_name}}</td>
                                             <td>{{ $item->corrective }}</td>
                                             <td>{{ $item->preventive }}</td>
 
