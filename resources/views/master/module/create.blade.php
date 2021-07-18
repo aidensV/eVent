@@ -55,7 +55,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label for="staticEmail" class="col-sm-2 col-form-label">Lab</label>
+                <label for="staticEmail" class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-10">
                   <input type="hidden" class="form-control" name="lab_id" value="{{$lab->id}}">
                 </div>
@@ -69,12 +69,12 @@
               <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Dokumen</label>
                 <div class="col-sm-10">
-                  <input type="file" class="form-control" name="doc_file" >
+                  <input type="file" class="form-control" accept="application/pdf" name="doc_file" >
                 </div>
               </div>
            
               <div class="text-right">
-              <a href="{{route('master.module')}}" class="btn btn-sencondary">Kembali</a>
+              <a href="{{route('master.lab.show.module',$lab->id)}}" class="btn btn-sencondary">Kembali</a>
               &nbsp;
                 <button type="submit" class="btn btn-primary">Simpan</button>
               </div>

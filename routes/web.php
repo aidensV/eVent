@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LabController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ProdiController;
@@ -38,9 +40,8 @@ Route::middleware(['auth:web'])->group(function(){
         return redirect('/');
     })->name('auth.logout');
 
-    Route::get('/dashboard', function () {
-        return view('home');
-    })->name('dashboard');
+    Route::get('/dashboard',[HomeController::class,'index'])->name('dashboard');
+    Route::post('/report-history',[HistoryController::class,'reportHistory'])->name('report.history');
    
     Route::prefix('master')->group(function(){
         Route::prefix('users')->group(function(){

@@ -40,4 +40,14 @@ class ProdiController extends Controller
             return back()->with('error','Gagal menghapus prodi '.$th->getMessage());
         }
     }
+
+    public function listProdi()
+    {
+        $prodi = Prodi::orderBy('name')->get();
+        
+        return response()->json([
+            'status' => 'success',
+            'data' => $prodi
+        ]);
+    }
 }

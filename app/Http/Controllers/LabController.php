@@ -63,11 +63,13 @@ class LabController extends Controller
     public function listLab(Request $request)
     {
         
-        $lab = Lab::find($request->user()->prodi);
+        $prodiID = $request->prodi_id ?? $request->user()->prodi;
+        $lab = Lab::where('prodi_id',$prodiID)->get();
+        $prodi = Prodi::find($prodiID);
         if($lab){
             return response()->json([
                 'status' => 'success',
-                'data' => $lab
+                'data' => ['lab' => $lab, 'prodi' => $prodi],
             ],200);    
         }
         return response()->json([
@@ -75,4 +77,5 @@ class LabController extends Controller
             'message' => 'Data tidak ditemukan'
         ],400);
     }
+    
 }

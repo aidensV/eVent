@@ -55,7 +55,7 @@
                 @forelse($module as $key =>$data)
                 <tr>
                   <th scope="row">{{$key+1}}</th>
-                  <td><a href="{{route('master.lab.show',$data->id)}}"> {{$data->name}}</a></td>
+                  <td> {{$data->name}}</td>
                   <td>
                     <div class="btn-group" role="group" aria-label="Basic example">
                     

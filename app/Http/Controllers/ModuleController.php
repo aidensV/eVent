@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\History;
 use App\Models\Lab;
 use App\Models\Module;
+
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 class ModuleController extends Controller
 {
@@ -33,7 +36,7 @@ class ModuleController extends Controller
     {
 
         $module = Module::with('lab')->find($id);
-        $history = History::where('modul_id', $id)->get();
+        $history = History::where('modul_id', $id)->with('prodi')->get();
         if (!$module) {
             return back();
         }
@@ -44,8 +47,8 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         try {
-            
-            $labName = Lab::where('id',$request->lab_id)->first();
+
+            $labName = Lab::where('id', $request->lab_id)->first();
             $module = new Module;
             $module->name = $request->name;
             $module->uniqid = '';
@@ -53,17 +56,18 @@ class ModuleController extends Controller
                 $filenameWithExt = $request->file('image_file')->getClientOriginalName();
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                 $extension = $request->file('image_file')->getClientOriginalExtension();
-                $filenameSimpan = $filename . '_' . time() . '.' . $extension;
+                $filenameSimpan =  time() . '.' . $extension;
                 $path = $request->file('image_file')->storeAs('public/berkas', $filenameSimpan);
                 $module->path_image = $filenameSimpan;
             } else {
                 $module->path_image = '';
             }
             if ($request->hasFile('doc_file')) {
+
                 $filenameWithExt = $request->file('doc_file')->getClientOriginalName();
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                 $extension = $request->file('doc_file')->getClientOriginalExtension();
-                $filenameSimpan = $filename . '_' . time() . '.' . $extension;
+                $filenameSimpan = time() . '.' . $extension;
                 $path = $request->file('doc_file')->storeAs('public/berkas/dokumen', $filenameSimpan);
                 $module->path_file = $filenameSimpan;
             } else {
@@ -72,12 +76,12 @@ class ModuleController extends Controller
 
             $module->lab_id = $request->lab_id;
             $module->save();
-            
-            $qrName = substr($labName->name,0,2).'-'.$module->id;
+
+            $qrName = 'Event-' . substr($labName->name, 0, 2) . '-' . $module->id;
             $image = QrCode::format('png')
                 ->size(200)->errorCorrection('H')
                 ->generate($qrName);
-                $nameFile = time() . '.png';
+            $nameFile = time() . '.png';
             $output_file = 'public/berkas/qr-code/' . $nameFile;
             Storage::disk('local')->put($output_file, $image);
             $modulex = Module::find($module->id);
@@ -129,18 +133,28 @@ class ModuleController extends Controller
         }
     }
 
-    public function getModuleById($id)
+    public function getModuleById(Request $request, $id)
     {
-        $module = Module::with('lab')->find($id);
-        if(!$module){
+        $modul = Module::with('lab')
+            ->find($id);
+
+        if (!$modul) {
             return response()->json([
                 'status' => 'fail',
                 'message' => 'Data tidak ditemukan'
-            ]);    
+            ]);
         }
+        // if ($request->user()->type !== 'admin') {
+        //     if ($modul->lab->prodi_id === $request->user()->prodi) {
+        //         return response()->json([
+        //             'status' => 'fail',
+        //             'message' => 'Anda tidak memiliki akses'
+        //         ], 500);
+        //     }
+        // }
         return response()->json([
             'status' => 'success',
-            'data' => $module
+            'data' => $modul
         ]);
     }
 }

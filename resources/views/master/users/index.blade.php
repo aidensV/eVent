@@ -38,6 +38,7 @@
               <thead>
                 <tr>
                   <th scope="col">#</th>
+                  <th scope="col">Username</th>
                   <th scope="col">Name</th>
                   <th scope="col">Phone</th>
                   <th scope="col">Prodi</th>
@@ -49,9 +50,17 @@
                 @forelse($user as $key =>$data)
                 <tr>
                   <th scope="row">{{$key+1}}</th>
+                  <td>{{$data->username}}</td>
                   <td>{{$data->name}}</td>
                   <td>{{$data->phone}}</td>
-                  <td>{{$data->prodis->name}}</td>
+                  <td>
+                    @if($data->type == 'admin' )
+                    -
+                    @else
+                    {{$data->prodis->name}}
+                    @endif
+                    
+                  </td>
                   <td>{{$data->type}}</td>
                   <td>
                     <form action="{{route('master.users.delete',$data->id)}}" method="post">
